@@ -1,3 +1,7 @@
+Minimalistic download manager for files on uploaded.net (needs premium account).
+
+Supports DLCs.
+
 Needs Python3.
 
     usage: uploaded.py [-h] [--workers WORKERS] [--id ID] [--pw PW]
