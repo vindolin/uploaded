@@ -1,4 +1,4 @@
-Python3 only!
+Needs Python3.
 
     usage: uploaded.py [-h] [--workers WORKERS] [--id ID] [--pw PW]
                        [--download_dir DOWNLOAD_DIR]
