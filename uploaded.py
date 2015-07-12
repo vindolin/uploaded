@@ -15,7 +15,7 @@ home = os.getenv('HOME')
 
 config = configparser.ConfigParser()
 
-config.read(os.path.join(home, '.downer.conf'))
+config.read(os.path.join(home, '.uploaded.py.conf'))
 
 try:
     login_data = {
@@ -280,7 +280,7 @@ def add_download(url, dlc=None):
 
 if __name__ == "__main__":
 
-    # create the file .downer.conf in your home dir:
+    # create the file .uploaded.py.conf in your home dir:
     '''
         [UPLOADED]
         id = XXXXXXX
