@@ -1,3 +1,5 @@
+Python3 only!
+
     usage: uploaded.py [-h] [--workers WORKERS] [--id ID] [--pw PW]
                        [--download_dir DOWNLOAD_DIR]
                        urls [urls ...]
