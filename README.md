@@ -2,7 +2,7 @@ Minimalistic download manager for files on uploaded.net (needs premium account).
 
 Supports DLCs.
 
-Needs Python3.
+Needs Python3 (asyncio, yield from).
 
     usage: uploaded.py [-h] [--workers WORKERS] [--id ID] [--pw PW]
                        [--download_dir DOWNLOAD_DIR]
