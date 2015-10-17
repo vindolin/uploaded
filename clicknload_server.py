@@ -41,7 +41,7 @@ def addcrypted2():
     result = obj.decrypt(crypted).replace(
         '\x00', '').replace('\r', '').split('\n')
 
-    print ', '.join([url for url in result if url != '' and url_filter_str in url])
+    print ' '.join([url for url in result if url != '' and url_filter_str in url])
 
     return 'success'
 
