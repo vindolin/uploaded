@@ -188,7 +188,12 @@ def print_progress():
 
             percent_str = '{:.2%}'.format(percent)
             downloads_print.append('{color}{percent:>7} of {size:>9} {file_name} {end}'.format(
-                percent=percent_str, file_name=download['file_name'], color=colors[download['status']], size=human_readable_size(download['file_length_total']), end=colors['end']))
+                percent=percent_str,
+                file_name=download['file_name'],
+                color=colors[download['status']],
+                size=human_readable_size(download['file_length_total']),
+                end=colors['end']
+            ))
 
             if download['status'] == 'working':
                 all_done = False  # at least one download is not finished
@@ -205,7 +210,13 @@ def print_progress():
 
         total_percent = total_progress / total_length
         print('Downloading {num_downloads} files to {download_dir} ({num_workers} workers) progress: {percent} of {size} ({rate}/s)'.format(
-            num_downloads=len(downloads), download_dir=download_dir, num_workers=workers, percent='{:.2%}'.format(total_percent), size=human_readable_size(total_length), rate=rate))
+            num_downloads=len(downloads),
+            download_dir=download_dir,
+            num_workers=workers,
+            percent='{:.2%}'.format(total_percent),
+            size=human_readable_size(total_length),
+            rate=rate
+        ))
         print('\n'.join(downloads_print))
 
         if all_done is True:

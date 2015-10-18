@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from flask import Flask, request
 from urllib import unquote
 from base64 import standard_b64decode
@@ -38,8 +39,7 @@ def addcrypted2():
     IV = Key
 
     obj = AES.new(Key, AES.MODE_CBC, IV)
-    result = obj.decrypt(crypted).replace(
-        '\x00', '').replace('\r', '').split('\n')
+    result = obj.decrypt(crypted).replace('\x00', '').replace('\r', '').split('\n')
 
     print ' '.join([url for url in result if url != '' and url_filter_str in url])
 
