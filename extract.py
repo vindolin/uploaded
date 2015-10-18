@@ -9,17 +9,25 @@ import shutil
 
 parser = argparse.ArgumentParser(description='extract recursive rars')
 parser.add_argument('archive', help='rar archive to extract from')
-parser.add_argument('-p', help='rar password')
+parser.add_argument('-p', help='rar password', default=None)
 parser.add_argument('--pat', '-e', help='only extract files with that match the pattern, e.g: *.mkv')
 parser.add_argument('target_dir', help='target directory (uses archive name as default)', nargs='?', default=None)
 
 args = parser.parse_args()
 
-print(args)
+
+def rar_cmd(archive, target_dir, password):
+    password_str = ' -p{}'.format(password) if password else ''
+
+    return 'unrar x {} {} {}'.format(archive, target_dir, password_str)
+
+
+def zip_cmd(archive, target_dir, password):
+    return 'unzip {archive} -d {target_dir}'
 
 archive_cmds = {
-    'rar': 'unrar x {archive} {target_dir}',
-    'zip': 'unzip {archive} -d {target_dir} '
+    'rar': rar_cmd,
+    'zip': zip_cmd,
 }
 
 extensions = {
@@ -54,14 +62,13 @@ def extract(archive):
     except KeyError:
         exit('unknown extension "{}"'.format(archive_extension))
 
-    cmd = archive_cmds[extension]
-
     with tempfile.TemporaryDirectory() as tempdir:
         print('extracting from {} to {}'.format(archive, tempdir))
         subprocess.check_output(
-            cmd.format(
+            archive_cmds[extension](
                 archive=archive,
-                target_dir=tempdir
+                target_dir=tempdir,
+                password=args.p,
             ),
             shell=True
         )
@@ -70,7 +77,10 @@ def extract(archive):
                 extract(file_)
             else:
                 if match_patterns(file_, [args.pat]):
-                    os.unlink(os.path.join(args.target_dir, os.path.basename(file_)))
+                    try:
+                        os.unlink(os.path.join(args.target_dir, os.path.basename(file_)))
+                    except FileNotFoundError:
+                        pass
                     shutil.move(file_, args.target_dir)
 
 extract(args.archive)
